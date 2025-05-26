@@ -1,16 +1,15 @@
-import type { Metadata } from 'next';
-import { Open_Sans } from 'next/font/google';
-import '@/styles/globals.css';
+import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
+import "./globals.css";
 
 const openSans = Open_Sans({
-  subsets: ['latin'],
-  variable: '--font-open-sans',
-  display: 'swap'
+  variable: "--font-open-sans",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: 'Call-Tech',
-  description: '',
+  title: "Call-Tech",
+  description: "",
 };
 
 export default function RootLayout({
@@ -19,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='pt-br' className={openSans.variable}>
-      <body>
+    <html lang="pt-br">
+      <body className={`bg-white ${openSans.variable} antialiased`}>
         {children}
       </body>
     </html>
