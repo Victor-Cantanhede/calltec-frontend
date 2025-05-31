@@ -1,5 +1,6 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { login } from 'services/authService/authService';
 
 import { FaUser, FaLock } from 'react-icons/fa6';
@@ -13,41 +14,42 @@ export default function Login() {
   const [inputUser, setInputUser] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const inputRememberMeRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();    
+  const router = useRouter();
+
+  const handleSubmit = async (e: any): Promise<void> => {
+    e.preventDefault();
     const username: string = inputUser;
     const password: string = inputPassword;
-    
+
     setLoading(true);
 
     try {
-      const response = await login({username, password});
-      console.log(response);
+      await login({username, password});
+      router.push('/dashboard');
       
     } catch (error) {
       console.error(error);
     }
-
     setLoading(false);
   };
 
   return (
-    <div className='h-full pt-[20dvh] bg-gray-100 overflow-auto'>
+    <div className='h-full sm:pt-[20dvh] bg-gray-100 overflow-auto'>
 
-      <div className='h-[max-content] w-[400px] max-w-[95%] m-auto px-[20px] py-[40px] flex flex-col justify-center items-center gap-3 shadow-xl bg-white'>
+      <div className='h-full sm:h-[max-content] w-full sm:w-[400px] m-auto px-[20px] py-[40px] flex flex-col justify-center items-center gap-3 shadow-xl bg-white'>
 
-        <Image src='/logo.png' alt='logo' width={120} height={120} />
+        <Image src='/logo.png' alt='logo' priority width={120} height={120} />
         <h1>Login</h1>
 
-        <form onSubmit={handleSubmit} autoComplete='off' className='w-[70%] flex flex-col justify-center items-start gap-3'>
+        <form onSubmit={handleSubmit} autoComplete='off' className='w-[100%] sm:w-[70%] flex flex-col justify-center items-start gap-3 transition ease-linear duration-300'>
 
           <Input01
             icon={<FaUser />}
             placeholder={'Usuário'}
             value={inputUser}
             onChange={(e) => setInputUser(e.target.value)}
+            required
           />
 
           <Input01
@@ -56,12 +58,8 @@ export default function Login() {
             placeholder={'Senha'}
             value={inputPassword}
             onChange={(e) => setInputPassword(e.target.value)}
+            required
           />
-
-          <label htmlFor='iRemember' className='flex justify-center items-center gap-1.5'>
-            <input ref={inputRememberMeRef} type='checkbox' id='iRemember' />
-            <p>Manter-me conectado</p>
-          </label>
 
           <Button01
             margin={'10px 0 0 0'}
