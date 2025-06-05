@@ -8,7 +8,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Call-Tech",
+  title: "CALLTEC",
   description: "",
 };
 
