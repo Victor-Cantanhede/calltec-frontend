@@ -1,5 +1,5 @@
 import { ReactNode, InputHTMLAttributes, useId, useState } from 'react';
-import { FiEye } from 'react-icons/fi';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
     width?: string;
@@ -16,6 +16,7 @@ export default function Input01({ width, id, title, type = 'text', icon, ...rest
     const inputId = id ?? generatedId;
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
         <label
@@ -36,12 +37,14 @@ export default function Input01({ width, id, title, type = 'text', icon, ...rest
                         ${isFocused && 'text-blue-600'}
                         transition ease-linear duration-300
                     `}
-                >{icon}</span>
+                >
+                    {icon}
+                </span>
             }
 
             <input
                 id={inputId}
-                type={type}
+                type={showPassword ? 'text' : type}
                 {...rest}
                 className='h-8 min-w-0 outline-none flex-grow'
                 onFocus={() => setIsFocused(true)}
@@ -52,7 +55,10 @@ export default function Input01({ width, id, title, type = 'text', icon, ...rest
                 <span
                     className={`p-1 rounded-full flex justify-center items-center text-[1rem] text-gray-500 cursor-pointer transition ease-linear duration-100 hover:bg-gray-300 hover:text-white
                     `}
-                ><FiEye /></span>
+                    onClick={() => setShowPassword(!showPassword)}
+                >
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                </span>
             }
             
         </label>

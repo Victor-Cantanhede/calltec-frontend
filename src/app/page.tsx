@@ -10,10 +10,11 @@ import Button01 from 'components/Buttons/Button01';
 import Image from 'next/image';
 
 
-export default function Login() {
+export default function LoginPage() {
   const [inputUser, setInputUser] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [loginFailed, setLoginFailed] = useState<string>('');
 
   const router = useRouter();
 
@@ -29,9 +30,11 @@ export default function Login() {
       router.push('/dashboard');
       
     } catch (error) {
-      console.error(error);
+      const message: string = `${error}`;
+      console.error(message);
+      setLoginFailed(message);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -60,6 +63,10 @@ export default function Login() {
             onChange={(e) => setInputPassword(e.target.value)}
             required
           />
+
+          {loginFailed &&
+            <p className='w-full pl-2 pr-2 border-l-2 border-l-red-600 rounded bg-red-100 text-red-600'>{loginFailed}</p>
+          }
 
           <Button01
             margin={'10px 0 0 0'}
