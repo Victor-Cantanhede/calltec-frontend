@@ -12,8 +12,8 @@ export async function login(payload: LoginPayload) {
         const response = await api.post('/users/login', payload);
         const token: string = response.data.token;
 
-        const cookiesData = await cookies();
-        cookiesData.set('token', token, {
+        const cookieStore = await cookies();
+        cookieStore.set('token', token, {
             httpOnly: true,
             secure: true,
             sameSite: 'strict',

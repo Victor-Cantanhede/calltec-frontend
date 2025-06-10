@@ -16,4 +16,4 @@ html, body {
   overflow: hidden;
 }
 
-p, input, textarea { font-size: 0.9rem; }
+input, textarea { font-size: 0.9rem; }

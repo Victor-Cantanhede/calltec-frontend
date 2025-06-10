@@ -65,7 +65,7 @@ export default function LoginPage() {
           />
 
           {loginFailed &&
-            <p className='w-full pl-2 pr-2 border-l-2 border-l-red-600 rounded bg-red-100 text-red-600'>{loginFailed}</p>
+            <p className='w-full pl-2 pr-2 border-l-2 border-l-red-600 rounded bg-red-100 text-red-600 text-[0.8rem]'>{loginFailed}</p>
           }
 
           <Button01
